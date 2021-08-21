@@ -1,30 +1,21 @@
 <script>
-	export let name;
+  import Header from "@/layout/TheHeader.svelte";
+  
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<Header />
+<main />
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+  :root {
+    margin: 0;
+    padding: 0;
+  }
+  :global(body) {
+    padding: 0;
+  }
+  * {
+    box-sizing: border-box;
+  }
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
