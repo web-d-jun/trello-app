@@ -10,10 +10,8 @@
 <Header />
 
 <Router {url}>
-  <div>
-    <Route path="board"><Board /></Route>
-    <Route path="Main" component={Main} />
-  </div>
+  <Route path="board"><Board /></Route>
+  <Route path="Main" component={Main} />
 </Router>
 
 <style lang="scss">
@@ -24,7 +22,7 @@
   :global(body) {
     padding: 0;
   }
-  * {
+  :global(*) {
     box-sizing: border-box;
   }
 </style>
