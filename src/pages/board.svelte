@@ -1,6 +1,9 @@
 <script>
 
 </script>
+<svelte:head>
+  <title>Board</title>
+</svelte:head>
 <div class="container">
     <div class="left__contents">
         left
