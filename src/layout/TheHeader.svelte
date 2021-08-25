@@ -12,7 +12,7 @@
   <div class="header-band"><Icon icon={faColumns} /> Trello</div>
   <div class="button-group">
     <button type="button" class="button" on:click={() => goPage("home")}> <Icon icon={faHome} /> </button>
-    <button type="button" class="button" on:click={() => goPage("board")}><span class="icon"><Icon icon={faColumns} /></span><span>Boards </span></button>
+    <button type="button" class="button" on:click={() => goPage("boards")}><span class="icon"><Icon icon={faColumns} /></span><span>Boards </span></button>
     <button type="button" class="button">Jump to....</button>
   </div>
   <div class="button-group">

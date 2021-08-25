@@ -1,7 +1,6 @@
 <script>
   import Header from "@/layout/TheHeader.svelte";
   import Board from "@/pages/board.svelte";
-  import Main from "@/pages/main.svelte";
   import { Router, Route } from "svelte-routing";
 
   export let url = "";
@@ -10,8 +9,7 @@
 <Header />
 
 <Router {url}>
-  <Route path="board"><Board /></Route>
-  <Route path="Main" component={Main} />
+  <Route path="boards"><Board /></Route>
 </Router>
 
 <style lang="scss">

@@ -2,13 +2,11 @@
 
 var Header = require('@/layout/TheHeader.svelte');
 var Board = require('@/pages/board.svelte');
-var Main = require('@/pages/main.svelte');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var Header__default = /*#__PURE__*/_interopDefaultLegacy(Header);
 var Board__default = /*#__PURE__*/_interopDefaultLegacy(Board);
-var Main__default = /*#__PURE__*/_interopDefaultLegacy(Main);
 
 function noop() { }
 function run(fn) {
@@ -744,7 +742,7 @@ const Route = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 
 const css = {
 	code: "html, body{font-size:62.5%}body{padding:0}*{box-sizing:border-box}",
-	map: "{\"version\":3,\"file\":\"App.svelte\",\"sources\":[\"App.svelte\"],\"sourcesContent\":[\"<script>\\n  import Header from \\\"@/layout/TheHeader.svelte\\\";\\n  import Board from \\\"@/pages/board.svelte\\\";\\n  import Main from \\\"@/pages/main.svelte\\\";\\n  import { Router, Route } from \\\"svelte-routing\\\";\\n\\n  export let url = \\\"\\\";\\n</script>\\n\\n<Header />\\n\\n<Router {url}>\\n  <Route path=\\\"board\\\"><Board /></Route>\\n  <Route path=\\\"Main\\\" component={Main} />\\n</Router>\\n\\n<style lang=\\\"scss\\\">\\n  /* :root {\\n    margin: 0;\\n    padding: 0;\\n  } */\\n  :global(html, body) {\\n    font-size: 62.5%;\\n  }\\n  :global(body) {\\n    padding: 0;\\n  }\\n  :global(*) {\\n    box-sizing: border-box;\\n  }\\n</style>\\n\"],\"names\":[],\"mappings\":\"AAqBU,UAAU,AAAE,CAAC,AACnB,SAAS,CAAE,KAAK,AAClB,CAAC,AACO,IAAI,AAAE,CAAC,AACb,OAAO,CAAE,CAAC,AACZ,CAAC,AACO,CAAC,AAAE,CAAC,AACV,UAAU,CAAE,UAAU,AACxB,CAAC\"}"
+	map: "{\"version\":3,\"file\":\"App.svelte\",\"sources\":[\"App.svelte\"],\"sourcesContent\":[\"<script>\\n  import Header from \\\"@/layout/TheHeader.svelte\\\";\\n  import Board from \\\"@/pages/board.svelte\\\";\\n  import { Router, Route } from \\\"svelte-routing\\\";\\n\\n  export let url = \\\"\\\";\\n</script>\\n\\n<Header />\\n\\n<Router {url}>\\n  <Route path=\\\"boards\\\"><Board /></Route>\\n</Router>\\n\\n<style lang=\\\"scss\\\">\\n  /* :root {\\n    margin: 0;\\n    padding: 0;\\n  } */\\n  :global(html, body) {\\n    font-size: 62.5%;\\n  }\\n  :global(body) {\\n    padding: 0;\\n  }\\n  :global(*) {\\n    box-sizing: border-box;\\n  }\\n</style>\\n\"],\"names\":[],\"mappings\":\"AAmBU,UAAU,AAAE,CAAC,AACnB,SAAS,CAAE,KAAK,AAClB,CAAC,AACO,IAAI,AAAE,CAAC,AACb,OAAO,CAAE,CAAC,AACZ,CAAC,AACO,CAAC,AAAE,CAAC,AACV,UAAU,CAAE,UAAU,AACxB,CAAC\"}"
 };
 
 const App = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -755,10 +753,9 @@ const App = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 	return `${validate_component(Header__default['default'], "Header").$$render($$result, {}, {}, {})}
 
 ${validate_component(Router, "Router").$$render($$result, { url }, {}, {
-		default: () => `${validate_component(Route, "Route").$$render($$result, { path: "board" }, {}, {
+		default: () => `${validate_component(Route, "Route").$$render($$result, { path: "boards" }, {}, {
 			default: () => `${validate_component(Board__default['default'], "Board").$$render($$result, {}, {}, {})}`
-		})}
-  ${validate_component(Route, "Route").$$render($$result, { path: "Main", component: Main__default['default'] }, {}, {})}`
+		})}`
 	})}`;
 });
 
