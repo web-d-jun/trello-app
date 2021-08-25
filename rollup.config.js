@@ -7,6 +7,7 @@ import css from "rollup-plugin-css-only";
 import scss from "rollup-plugin-scss";
 import sveltePreprocess from "svelte-preprocess";
 import alias from "@rollup/plugin-alias";
+import image from "@rollup/plugin-image"; //image loader
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -74,6 +75,7 @@ export default [
         sourceMap: true,
         sass: require("sass"),
       }),
+      image(),
     ],
     watch: {
       clearScreen: false,
