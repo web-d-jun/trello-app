@@ -28,11 +28,11 @@
 <div class="boards-page-board-section">
   <div class="boards-page-board-section-title"><Icon icon={faClock} /> Recently viewed</div>
   <div class="boards-page-board-section-list">
-    {#each items as item}
+    {#each items as item, i}
       <div class="boards-page-board-section-item" style="background-image: url({image_1});">
         <div class="item-tile-fade" />
         <div class="item-detail">
-          <div class="detail-name">Project</div>
+          <div class="detail-name">Project {i + 1}</div>
           <div class="detail-option">
             <div class="star-icon">
               <Icon icon={faStar} />
