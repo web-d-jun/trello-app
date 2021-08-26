@@ -83,7 +83,6 @@
       max-width: 825px;
       min-width: 288px;
       width: 100%;
-      border: 1px solid blue;
       margin: 40px 16px 0;
     }
   }
