@@ -43,6 +43,8 @@
   .container {
     display: flex;
     justify-content: center;
+    height: calc(100% - 38px);
+    overflow-y: auto;
     .left__contents {
       margin: 40px 0 0 0;
       padding: 0 16px;

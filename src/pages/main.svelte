@@ -30,7 +30,6 @@
   <div class="boards-page-board-section-list">
     {#each items as item, i}
       <div class="boards-page-board-section-item" style="background-image: url({image_1});">
-        <div class="item-tile-fade" />
         <div class="item-detail">
           <div class="detail-name">Project {i + 1}</div>
           <div class="detail-option">
@@ -39,6 +38,7 @@
             </div>
           </div>
         </div>
+        <div class="item-tile-fade" />
       </div>
     {/each}
   </div>
@@ -117,7 +117,6 @@
         bottom: 0;
         background-color: #00000026;
         &:hover {
-          background-color: rgba(0, 0, 0, 0.322);
           & ~ .item-detail {
             & .detail-option {
               .star-icon {
@@ -132,6 +131,19 @@
         flex-direction: column;
         justify-content: space-between;
         height: 80px;
+        position: relative;
+        z-index: 1;
+
+        &:hover {
+          & ~ .item-tile-fade {
+            background-color: rgba(0, 0, 0, 0.322);
+          }
+          & .detail-option {
+            .star-icon {
+              width: 25px;
+            }
+          }
+        }
         .detail-name {
           font-size: 1.6rem;
           color: #fff;
