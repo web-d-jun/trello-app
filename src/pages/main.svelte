@@ -14,8 +14,8 @@
       <div class="item-detail">
         <div class="detail-name">Project</div>
         <div class="detail-option">
-          <div class="star-icon">
-            <Icon icon={faStar} />
+          <div class="star-icon__contents">
+            <span class="material-icons-outlined">grade</span>
           </div>
         </div>
       </div>
@@ -33,8 +33,8 @@
         <div class="item-detail">
           <div class="detail-name">Project {i + 1}</div>
           <div class="detail-option">
-            <div class="star-icon">
-              <Icon icon={faStar} />
+            <div class="star-icon__contents">
+              <span class="material-icons-outlined">grade</span>
             </div>
           </div>
         </div>
@@ -51,8 +51,8 @@
       <div class="item-detail">
         <div class="detail-name">Project</div>
         <div class="detail-option">
-          <div class="star-icon">
-            <Icon icon={faStar} />
+          <div class="star-icon__contents">
+            <span class="material-icons-outlined">grade</span>
           </div>
         </div>
       </div>
@@ -70,8 +70,8 @@
       <div class="item-detail">
         <div class="detail-name">Project</div>
         <div class="detail-option">
-          <div class="star-icon">
-            <Icon icon={faStar} />
+          <div class="star-icon__contents">
+            <span class="material-icons-outlined">grade</span>
           </div>
         </div>
       </div>
@@ -119,7 +119,7 @@
         &:hover {
           & ~ .item-detail {
             & .detail-option {
-              .star-icon {
+              .star-icon__contents {
                 width: 25px;
               }
             }
@@ -139,7 +139,7 @@
             background-color: rgba(0, 0, 0, 0.322);
           }
           & .detail-option {
-            .star-icon {
+            .star-icon__contents {
               width: 25px;
             }
           }
@@ -152,7 +152,7 @@
         .detail-option {
           width: 100%;
           height: 18px;
-          .star-icon {
+          .star-icon__contents {
             position: absolute;
             right: 0;
             line-height: 1%;
@@ -164,6 +164,12 @@
             &:hover {
               width: 25px;
               transform: scale(1.2);
+            }
+            .material-icons-outlined {
+              font-size: 16px;
+              &.starred {
+                color: yellow;
+              }
             }
           }
         }
