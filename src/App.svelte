@@ -1,5 +1,6 @@
 <script>
   import Header from "@/layout/TheHeader.svelte";
+  import Boards from "@/pages/boards.svelte";
   import Board from "@/pages/board.svelte";
   import { Router, Route } from "svelte-routing";
 
@@ -9,7 +10,8 @@
 <Header />
 
 <Router {url}>
-  <Route path="boards"><Board /></Route>
+  <Route path="boards"><Boards /></Route>
+  <Route path="b"><Board /></Route>
 </Router>
 
 <style lang="scss">

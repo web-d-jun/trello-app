@@ -4,14 +4,17 @@
   import { faStar, faClock } from "@fortawesome/free-solid-svg-icons";
 
   const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const goProject = () => {
+    console.log("??");
+  };
 </script>
 
 <div class="boards-page-board-section">
-  <div class="boards-page-board-section-title boards-page-board-section-title--star"><span class="icon"><Icon icon={faStar} /></span> Starred boards</div>
+  <div class="boards-page-board-section-title boards-page-board-section-title--star"><span class="icon"><span class="material-icons-outlined">grade</span></span> Starred boards</div>
   <div class="boards-page-board-section-list">
     <div class="boards-page-board-section-item" style="background-image: url({image_1});">
-      <div class="item-tile-fade" />
-      <div class="item-detail">
+      <div class="item-detail" on:click={goProject}>
         <div class="detail-name">Project</div>
         <div class="detail-option">
           <div class="star-icon__contents">
@@ -19,6 +22,7 @@
           </div>
         </div>
       </div>
+      <div class="item-tile-fade" on:click={goProject} />
     </div>
     <div class="boards-page-board-section-item">
       <div class="item-detail" />
@@ -30,7 +34,7 @@
   <div class="boards-page-board-section-list">
     {#each items as item, i}
       <div class="boards-page-board-section-item" style="background-image: url({image_1});">
-        <div class="item-detail">
+        <div class="item-detail" on:click={goProject}>
           <div class="detail-name">Project {i + 1}</div>
           <div class="detail-option">
             <div class="star-icon__contents">
@@ -38,7 +42,7 @@
             </div>
           </div>
         </div>
-        <div class="item-tile-fade" />
+        <div class="item-tile-fade" on:click={goProject} />
       </div>
     {/each}
   </div>
@@ -47,8 +51,7 @@
   <div class="boards-page-board-section-title">YOUR WORKSPACES</div>
   <div class="boards-page-board-section-list">
     <div class="boards-page-board-section-item" style="background-image: url({image_1});">
-      <div class="item-tile-fade" />
-      <div class="item-detail">
+      <div class="item-detail" on:click={goProject}>
         <div class="detail-name">Project</div>
         <div class="detail-option">
           <div class="star-icon__contents">
@@ -56,6 +59,7 @@
           </div>
         </div>
       </div>
+      <div class="item-tile-fade" on:click={goProject} />
     </div>
     <div class="boards-page-board-section-item">
       <div class="item-detail" />
@@ -66,7 +70,6 @@
   <div class="boards-page-board-section-title">GUEST WORKSPACES</div>
   <div class="boards-page-board-section-list">
     <div class="boards-page-board-section-item" style="background-image: url({image_1});">
-      <div class="item-tile-fade" />
       <div class="item-detail">
         <div class="detail-name">Project</div>
         <div class="detail-option">
@@ -75,6 +78,7 @@
           </div>
         </div>
       </div>
+      <div class="item-tile-fade" />
     </div>
     <div class="boards-page-board-section-item">
       <div class="item-detail" />
