@@ -1,6 +1,6 @@
 *Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
   
----
+  ---
 
 # svelte app
 
@@ -12,7 +12,7 @@ To create a new project based on this template using [degit](https://github.com/
 npx degit sveltejs/template svelte-app
 cd svelte-app
 ```
-
+    
 *Note that you will need to have [Node.js](https://nodejs.org) installed.*
 
 
