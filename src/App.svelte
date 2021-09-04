@@ -10,8 +10,8 @@
 <Header />
 
 <Router {url}>
-  <Route path="boards"><Boards /></Route>
-  <Route path="b"><Board /></Route>
+  <Route path="/boards"><Boards /></Route>
+  <Route path="b/:id" let:params><Board id="{params.id}" /></Route>
 </Router>
 
 <style lang="scss">

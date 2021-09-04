@@ -1,12 +1,22 @@
 <script>
   import image_1 from "@/assets/images/image-1.jpg";
-  import Icon from "svelte-fa";
-  import { faStar, faClock } from "@fortawesome/free-solid-svg-icons";
+  // import Icon from "svelte-fa";
+  // import { faStar, faClock } from "@fortawesome/free-solid-svg-icons";
+  import { navigate } from "svelte-routing";
+  import { changeHeaderBackground } from "@/store.js";
 
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const items = [
+    { id: 1, name: "project", favorite: true },
+    { id: 2, name: "스터디", favorite: false },
+    { id: 3, name: "개발", favorite: false },
+    { id: 4, name: "-", favorite: false },
+  ];
 
-  const goProject = () => {
-    console.log("??");
+  changeHeaderBackground.update((n) => false);
+
+  const goProject = (id) => {
+    changeHeaderBackground.update((n) => true);
+    navigate(`b/${id}`, { replace: true });
   };
 </script>
 
@@ -30,12 +40,12 @@
   </div>
 </div>
 <div class="boards-page-board-section">
-  <div class="boards-page-board-section-title"><Icon icon={faClock} /> Recently viewed</div>
+  <div class="boards-page-board-section-title"><span class="material-icons-outlined"> schedule </span> Recently viewed</div>
   <div class="boards-page-board-section-list">
     {#each items as item, i}
       <div class="boards-page-board-section-item" style="background-image: url({image_1});">
-        <div class="item-detail" on:click={goProject}>
-          <div class="detail-name">Project {i + 1}</div>
+        <div class="item-detail" on:click={() => goProject(item.name)}>
+          <div class="detail-name">{item.name}</div>
           <div class="detail-option">
             <div class="star-icon__contents">
               <span class="material-icons-outlined">grade</span>

@@ -744,7 +744,7 @@ const Route = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 
 const css = {
 	code: "html, body{font-size:62.5%}body{padding:0}*{box-sizing:border-box}",
-	map: "{\"version\":3,\"file\":\"App.svelte\",\"sources\":[\"App.svelte\"],\"sourcesContent\":[\"<script>\\r\\n  import Header from \\\"@/layout/TheHeader.svelte\\\";\\r\\n  import Boards from \\\"@/pages/boards.svelte\\\";\\r\\n  import Board from \\\"@/pages/board.svelte\\\";\\r\\n  import { Router, Route } from \\\"svelte-routing\\\";\\r\\n\\r\\n  export let url = \\\"\\\";\\r\\n</script>\\r\\n\\r\\n<Header />\\r\\n\\r\\n<Router {url}>\\r\\n  <Route path=\\\"boards\\\"><Boards /></Route>\\r\\n  <Route path=\\\"b\\\"><Board /></Route>\\r\\n</Router>\\r\\n\\r\\n<style lang=\\\"scss\\\">\\r\\n  /* :root {\\r\\n    margin: 0;\\r\\n    padding: 0;\\r\\n  } */\\r\\n  :global(html, body) {\\r\\n    font-size: 62.5%;\\r\\n  }\\r\\n  :global(body) {\\r\\n    padding: 0;\\r\\n  }\\r\\n  :global(*) {\\r\\n    box-sizing: border-box;\\r\\n  }\\r\\n</style>\\r\\n\"],\"names\":[],\"mappings\":\"AAqBU,UAAU,AAAE,CAAC,AACnB,SAAS,CAAE,KAAK,AAClB,CAAC,AACO,IAAI,AAAE,CAAC,AACb,OAAO,CAAE,CAAC,AACZ,CAAC,AACO,CAAC,AAAE,CAAC,AACV,UAAU,CAAE,UAAU,AACxB,CAAC\"}"
+	map: "{\"version\":3,\"file\":\"App.svelte\",\"sources\":[\"App.svelte\"],\"sourcesContent\":[\"<script>\\n  import Header from \\\"@/layout/TheHeader.svelte\\\";\\n  import Boards from \\\"@/pages/boards.svelte\\\";\\n  import Board from \\\"@/pages/board.svelte\\\";\\n  import { Router, Route } from \\\"svelte-routing\\\";\\n\\n  export let url = \\\"\\\";\\n</script>\\n\\n<Header />\\n\\n<Router {url}>\\n  <Route path=\\\"/boards\\\"><Boards /></Route>\\n  <Route path=\\\"b/:id\\\" let:params><Board id=\\\"{params.id}\\\" /></Route>\\n</Router>\\n\\n<style lang=\\\"scss\\\">\\n  /* :root {\\n    margin: 0;\\n    padding: 0;\\n  } */\\n  :global(html, body) {\\n    font-size: 62.5%;\\n  }\\n  :global(body) {\\n    padding: 0;\\n  }\\n  :global(*) {\\n    box-sizing: border-box;\\n  }\\n</style>\\n\"],\"names\":[],\"mappings\":\"AAqBU,UAAU,AAAE,CAAC,AACnB,SAAS,CAAE,KAAK,AAClB,CAAC,AACO,IAAI,AAAE,CAAC,AACb,OAAO,CAAE,CAAC,AACZ,CAAC,AACO,CAAC,AAAE,CAAC,AACV,UAAU,CAAE,UAAU,AACxB,CAAC\"}"
 };
 
 const App = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -755,11 +755,11 @@ const App = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 	return `${validate_component(Header__default['default'], "Header").$$render($$result, {}, {}, {})}
 
 ${validate_component(Router, "Router").$$render($$result, { url }, {}, {
-		default: () => `${validate_component(Route, "Route").$$render($$result, { path: "boards" }, {}, {
+		default: () => `${validate_component(Route, "Route").$$render($$result, { path: "/boards" }, {}, {
 			default: () => `${validate_component(Boards__default['default'], "Boards").$$render($$result, {}, {}, {})}`
 		})}
-  ${validate_component(Route, "Route").$$render($$result, { path: "b" }, {}, {
-			default: () => `${validate_component(Board__default['default'], "Board").$$render($$result, {}, {}, {})}`
+  ${validate_component(Route, "Route").$$render($$result, { path: "b/:id" }, {}, {
+			default: ({ params }) => `${validate_component(Board__default['default'], "Board").$$render($$result, { id: params.id }, {}, {})}`
 		})}`
 	})}`;
 });
