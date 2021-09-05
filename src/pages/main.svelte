@@ -24,7 +24,7 @@
   <div class="boards-page-board-section-title boards-page-board-section-title--star"><span class="icon"><span class="material-icons-outlined">grade</span></span> Starred boards</div>
   <div class="boards-page-board-section-list">
     <div class="boards-page-board-section-item" style="background-image: url({image_1});">
-      <div class="item-detail" on:click={goProject}>
+      <div class="item-detail" on:click={() => goProject("project")}>
         <div class="detail-name">Project</div>
         <div class="detail-option">
           <div class="star-icon__contents">
@@ -32,7 +32,6 @@
           </div>
         </div>
       </div>
-      <div class="item-tile-fade" on:click={goProject} />
     </div>
     <div class="boards-page-board-section-item">
       <div class="item-detail" />
@@ -61,7 +60,7 @@
   <div class="boards-page-board-section-title">YOUR WORKSPACES</div>
   <div class="boards-page-board-section-list">
     <div class="boards-page-board-section-item" style="background-image: url({image_1});">
-      <div class="item-detail" on:click={goProject}>
+      <div class="item-detail" on:click={() => goProject('project')}>
         <div class="detail-name">Project</div>
         <div class="detail-option">
           <div class="star-icon__contents">

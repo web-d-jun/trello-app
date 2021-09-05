@@ -18,7 +18,7 @@
   </div>
   <div class="button-group">
     <button type="button" class="button"> <span class="icon"><Icon icon={faPlus} /></span> </button>
-    <button type="button" class="button"><span class="icon"><span class="material-icons-outlined"> error_outline </span></span></button>
+    <button type="button" class="button"><span class="material-icons-outlined"> error_outline </span></button>
     <button type="button" class="button"><span class="icon"><Icon icon={faBell} /></span></button>
   </div>
 </header>
@@ -34,6 +34,10 @@
     justify-content: space-between;
     &.custom-header-background {
       background-color: rgba(0, 0, 0, 0.32);
+      .button-group {
+        .button {
+        }
+      }
     }
     & .header-band {
       position: absolute;
