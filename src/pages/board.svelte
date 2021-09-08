@@ -1,6 +1,7 @@
 <script>
   export let id;
-  console.log(id, "tetstsetstsetestsetset");
+
+  let cardLists = [];
 
   let inputMode = false;
   const changeInput = async (event, value) => {
@@ -9,7 +10,12 @@
   const createCard = (event) => {
     event.preventDefault();
     if (event.code === "Enter") {
-      console.log(event.target.value);
+      cardLists = cardLists.concat({
+        id: cardLists.length,
+        name: event.target.value,
+      });
+      event.target.value = "";
+      console.log(cardLists, "cardLists");
     }
   };
 
@@ -39,26 +45,28 @@
 <div class="board-main">
   <div class="board-header">header</div>
   <div class="board-body">
-    <div class="list-wrap">
-      <div class="list-content">
-        <div class="list-header">
-          <textarea
-            class="list-header-name"
-            class:input-mode={headerInputMode}
-            name=""
-            id=""
-            cols="30"
-            rows="10"
-            on:keydown={($event) => updateName($event)}
-            on:focus={($event) => focusIn($event, "listHeaderName")}
-            on:blur={() => focusOut("listHeaderName")}>header</textarea
-          >
-          <button type="button" class="more-button"><span class="material-icons-outlined"> more_horiz </span></button>
+    {#each cardLists as cardList (cardList.id)}
+      <div class="list-wrap">
+        <div class="list-content">
+          <div class="list-header">
+            <textarea
+              class="list-header-name"
+              class:input-mode={headerInputMode}
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              on:keydown={($event) => updateName($event)}
+              on:focus={($event) => focusIn($event, "listHeaderName")}
+              on:blur={() => focusOut("listHeaderName")}>{cardList.name}</textarea
+            >
+            <button type="button" class="more-button"><span class="material-icons-outlined"> more_horiz </span></button>
+          </div>
+          <!-- <div class="list-card">list card</div> -->
+          <div class="card-composer-container" />
         </div>
-        <!-- <div class="list-card">list card</div> -->
-        <div class="card-composer-container" />
       </div>
-    </div>
+    {/each}
     <div class="add-list" class:add-mode={inputMode}>
       <div class="add__contents">
         {#if !inputMode}
@@ -93,6 +101,8 @@
     .board-body {
       border: 1px solid blue;
       height: 100%;
+      white-space: nowrap;
+      overflow-x: auto;
       & .list-wrap {
         display: inline-block;
         width: 272px;
@@ -126,6 +136,10 @@
               outline: 0;
               .material-icons-outlined {
                 font-size: 1.6rem;
+              }
+              &:hover {
+                background-color: rgba(#000000, 0.2);
+                cursor: pointer;
               }
             }
             .list-header-name {
