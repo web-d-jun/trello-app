@@ -48,6 +48,68 @@
   };
 </script>
 
+<div class="board-main">
+  <div class="board-header">header</div>
+  <div class="board-body">
+    {#each cardLists as cardList (cardList.id)}
+      <div class="list-wrap">
+        <div class="list-content">
+          <div class="list-header">
+            <textarea
+              class="list-header-name"
+              class:input-mode="{headerInputMode}"
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              on:keydown="{($event) => updateName($event)}"
+              on:focus="{($event) => focusIn($event, 'listHeaderName')}"
+              on:blur="{() => focusOut('listHeaderName')}"
+              >{cardList.name}</textarea>
+            <button type="button" class="more-button"
+              ><span class="material-icons-outlined">
+                more_horiz
+              </span></button>
+          </div>
+          <!-- <div class="list-card">list card</div> -->
+          <div class="card-composer-container"></div>
+        </div>
+      </div>
+    {/each}
+    <div class="add-list" class:add-mode="{inputMode}">
+      <div class="add__contents">
+        {#if !inputMode}
+          <span
+            class="inner__text"
+            on:click|preventDefault="{($event) => changeInput($event, true)}"
+            >+ Add another list</span>
+        {:else}
+          <input
+            type="text"
+            id="listNameInput"
+            class="list-name-input"
+            placeholder="Enter list title..."
+            on:keyup|preventDefault="{createCard}"
+            bind:value="{listNameValue}" />
+        {/if}
+        <div
+          class="flex align-center add-button__wrap"
+          class:visible-mode="{inputMode}">
+          <button
+            type="button"
+            class="add-button"
+            on:click|preventDefault="{createCard}">Add list</button>
+          <span
+            class="material-icons-outlined"
+            on:click|preventDefault="{($event) => changeInput($event, false)}">
+            close
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <style lang="scss">
   .board-main {
     display: flex;
@@ -200,65 +262,3 @@
     align-items: center;
   }
 </style>
-
-<div class="board-main">
-  <div class="board-header">header</div>
-  <div class="board-body">
-    {#each cardLists as cardList (cardList.id)}
-      <div class="list-wrap">
-        <div class="list-content">
-          <div class="list-header">
-            <textarea
-              class="list-header-name"
-              class:input-mode="{headerInputMode}"
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              on:keydown="{($event) => updateName($event)}"
-              on:focus="{($event) => focusIn($event, 'listHeaderName')}"
-              on:blur="{() => focusOut('listHeaderName')}"
-              >{cardList.name}</textarea>
-            <button type="button" class="more-button"
-              ><span class="material-icons-outlined">
-                more_horiz
-              </span></button>
-          </div>
-          <!-- <div class="list-card">list card</div> -->
-          <div class="card-composer-container"></div>
-        </div>
-      </div>
-    {/each}
-    <div class="add-list" class:add-mode="{inputMode}">
-      <div class="add__contents">
-        {#if !inputMode}
-          <span
-            class="inner__text"
-            on:click|preventDefault="{($event) => changeInput($event, true)}"
-            >+ Add another list</span>
-        {:else}
-          <input
-            type="text"
-            id="listNameInput"
-            class="list-name-input"
-            placeholder="Enter list title..."
-            on:keyup|preventDefault="{createCard}"
-            bind:value="{listNameValue}" />
-        {/if}
-        <div
-          class="flex align-center add-button__wrap"
-          class:visible-mode="{inputMode}">
-          <button
-            type="button"
-            class="add-button"
-            on:click|preventDefault="{createCard}">Add list</button>
-          <span
-            class="material-icons-outlined"
-            on:click|preventDefault="{($event) => changeInput($event, false)}">
-            close
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
