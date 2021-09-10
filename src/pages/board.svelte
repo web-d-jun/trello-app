@@ -87,7 +87,9 @@
             <button type="button" class="more-button"><span class="material-icons-outlined"> more_horiz </span></button>
           </div>
           <!-- <div class="list-card">list card</div> -->
-          <div class="card-composer-container"></div>
+          <div class="card-composer-container">
+            <div class="add-card-button"><span class="material-icons-outlined"> add </span> Add a card</div>
+          </div>
         </div>
       </div>
     {/each}
@@ -115,6 +117,9 @@
     background-image: url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/1280x1920/9d2eead0ddc23a92d7e2e24576363205/photo-1602623056709-8a613a29940c.jpg');
     background-position: 50%;
     background-size: cover;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 
     .board-header {
       padding: 8px 4px 4px 8px;
@@ -187,6 +192,16 @@
               }
             }
           }
+          .card-composer-container {
+            width: 100%;
+            .add-card-button {
+              height: 38px;
+              line-height: 38px;
+              &:active {
+                background: rgba(#000000, 0.2);
+              }
+            }
+          }
         }
       }
       .add-list {
@@ -222,6 +237,7 @@
             align-items: center;
             .material-icons-outlined {
               line-height: 0;
+              color: #42526e;
             }
           }
           .list-name-input {
