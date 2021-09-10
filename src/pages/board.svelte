@@ -94,7 +94,7 @@
     <div class="add-list" class:add-mode="{inputMode}">
       <div class="add__contents">
         {#if !inputMode}
-          <span class="inner__text" on:click|preventDefault="{($event) => changeInput($event, true)}">+ Add another list</span>
+          <span class="inner__text" on:click|preventDefault="{($event) => changeInput($event, true)}"><span class="material-icons-outlined"> add </span> Add another list</span>
         {:else}
           <input type="text" id="listNameInput" class="list-name-input" placeholder="Enter list title..." on:keyup|preventDefault="{createCard}" bind:value="{listNameValue}" />
         {/if}
@@ -179,6 +179,7 @@
               background-color: transparent;
               cursor: pointer;
               display: block;
+              font-weight: 600;
               &.input-mode {
                 box-shadow: inset 0 0 0 2px #144ff7;
                 background-color: #fafbfc;
@@ -216,8 +217,12 @@
           .inner__text {
             color: #172b4d;
             padding: 6px 8px;
-            display: block;
+            display: flex;
             font-size: 14px;
+            align-items: center;
+            .material-icons-outlined {
+              line-height: 0;
+            }
           }
           .list-name-input {
             background-color: #fff;
