@@ -1,7 +1,20 @@
 <script>
   export let id;
 
-  let cardLists = [];
+  let cardLists = [
+    {
+      id: 0,
+      name: 'todo',
+    },
+    {
+      id: 1,
+      name: 'ing',
+    },
+    {
+      id: 2,
+      name: 'done',
+    },
+  ];
 
   let inputMode = false;
   let listNameValue = '';
@@ -120,6 +133,7 @@
         height: 100%;
         vertical-align: top;
         border-radius: 4px;
+        margin: 0 4px;
 
         .list-content {
           background-color: #ebecf0;
