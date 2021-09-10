@@ -4,19 +4,23 @@
   let cardLists = [];
 
   let inputMode = false;
+  let listNameValue = ''
+
+
   const changeInput = async (event, value) => {
     inputMode = value;
   };
   const createCard = (event) => {
     event.preventDefault();
-    if (event.code === "Enter") {
-      cardLists = cardLists.concat({
-        id: cardLists.length,
-        name: event.target.value,
-      });
-      event.target.value = "";
-      console.log(cardLists, "cardLists");
+    if(event.type === 'keyup' && event.code !== "Enter") {
+      return
     }
+    cardLists = cardLists.concat({
+      id: cardLists.length,
+      name: listNameValue,
+    });
+    listNameValue = "";
+    console.log(cardLists, "cardLists");
   };
 
   let headerInputMode = false;
@@ -72,10 +76,10 @@
         {#if !inputMode}
           <span class="inner__text" on:click|preventDefault={($event) => changeInput($event, true)}>+ Add another list</span>
         {:else}
-          <input type="text" class="list-name-input" placeholder="Enter list title..." on:keyup|preventDefault={createCard} />
+          <input type="text" id="listNameInput" class="list-name-input" placeholder="Enter list title..." on:keyup|preventDefault={createCard} bind:value={listNameValue}/>
         {/if}
         <div class="flex align-center add-button__wrap" class:visible-mode={inputMode}>
-          <button type="button" class="add-button">Add list</button>
+          <button type="button" class="add-button" on:click|preventDefault={createCard} >Add list</button>
           <span class="material-icons-outlined" on:click|preventDefault={($event) => changeInput($event, false)}> close </span>
         </div>
       </div>
