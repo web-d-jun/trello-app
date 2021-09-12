@@ -6,6 +6,9 @@
   import { globalHistory } from 'svelte-routing/src/history';
   import { onDestroy, onMount } from 'svelte';
   import { navigate } from 'svelte-routing';
+  import { changeHeaderBackground } from '@/store.js';
+
+  changeHeaderBackground.update((n) => false);
 
   let unsub = '';
 
@@ -14,7 +17,9 @@
   }
   onMount(() => {
     unsub = globalHistory.listen(({ location, action }) => {
-      console.log(location, action);
+      if (location.pathname.indexOf('/b/') > -1) {
+        changeHeaderBackground.update((n) => true);
+      }
     });
   });
   onDestroy(() => {

@@ -3,6 +3,7 @@
 var Header = require('@/layout/TheHeader.svelte');
 var Boards = require('@/pages/boards.svelte');
 var Board = require('@/pages/board.svelte');
+var store_js = require('@/store.js');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -745,10 +746,11 @@ const Route = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 
 const css = {
 	code: "html, body{font-size:62.5%}body{padding:0}*{box-sizing:border-box}",
-	map: "{\"version\":3,\"file\":\"App.svelte\",\"sources\":[\"App.svelte\"],\"sourcesContent\":[\"<script>\\r\\n  import Header from '@/layout/TheHeader.svelte';\\r\\n  import Boards from '@/pages/boards.svelte';\\r\\n  import Board from '@/pages/board.svelte';\\r\\n  import { Router, Route } from 'svelte-routing';\\r\\n  import { globalHistory } from 'svelte-routing/src/history';\\r\\n  import { onDestroy, onMount } from 'svelte';\\r\\n  import { navigate } from 'svelte-routing';\\r\\n\\r\\n  let unsub = '';\\r\\n\\r\\n  if (window.location.pathname === '/') {\\r\\n    navigate('/boards', { replace: true });\\r\\n  }\\r\\n  onMount(() => {\\r\\n    unsub = globalHistory.listen(({ location, action }) => {\\r\\n      console.log(location, action);\\r\\n    });\\r\\n  });\\r\\n  onDestroy(() => {\\r\\n    unsub();\\r\\n  });\\r\\n\\r\\n  export let url = '';\\r\\n</script>\\r\\n\\r\\n<Header />\\r\\n\\r\\n<Router url=\\\"{url}\\\">\\r\\n  <Route path=\\\"/boards\\\"><Boards /></Route>\\r\\n  <Route path=\\\"b/:id\\\" let:params><Board id=\\\"{params.id}\\\" /></Route>\\r\\n</Router>\\r\\n\\r\\n<style lang=\\\"scss\\\">\\r\\n  /* :root {\\r\\n    margin: 0;\\r\\n    padding: 0;\\r\\n  } */\\r\\n  :global(html, body) {\\r\\n    font-size: 62.5%;\\r\\n  }\\r\\n  :global(body) {\\r\\n    padding: 0;\\r\\n  }\\r\\n  :global(*) {\\r\\n    box-sizing: border-box;\\r\\n  }\\r\\n</style>\\r\\n\"],\"names\":[],\"mappings\":\"AAsCU,UAAU,AAAE,CAAC,AACnB,SAAS,CAAE,KAAK,AAClB,CAAC,AACO,IAAI,AAAE,CAAC,AACb,OAAO,CAAE,CAAC,AACZ,CAAC,AACO,CAAC,AAAE,CAAC,AACV,UAAU,CAAE,UAAU,AACxB,CAAC\"}"
+	map: "{\"version\":3,\"file\":\"App.svelte\",\"sources\":[\"App.svelte\"],\"sourcesContent\":[\"<script>\\r\\n  import Header from '@/layout/TheHeader.svelte';\\r\\n  import Boards from '@/pages/boards.svelte';\\r\\n  import Board from '@/pages/board.svelte';\\r\\n  import { Router, Route } from 'svelte-routing';\\r\\n  import { globalHistory } from 'svelte-routing/src/history';\\r\\n  import { onDestroy, onMount } from 'svelte';\\r\\n  import { navigate } from 'svelte-routing';\\r\\n  import { changeHeaderBackground } from '@/store.js';\\r\\n\\r\\n  changeHeaderBackground.update((n) => false);\\r\\n\\r\\n  let unsub = '';\\r\\n\\r\\n  if (window.location.pathname === '/') {\\r\\n    navigate('/boards', { replace: true });\\r\\n  }\\r\\n  onMount(() => {\\r\\n    unsub = globalHistory.listen(({ location, action }) => {\\r\\n      if (location.pathname.indexOf('/b/') > -1) {\\r\\n        changeHeaderBackground.update((n) => true);\\r\\n      }\\r\\n    });\\r\\n  });\\r\\n  onDestroy(() => {\\r\\n    unsub();\\r\\n  });\\r\\n\\r\\n  export let url = '';\\r\\n</script>\\r\\n\\r\\n<Header />\\r\\n\\r\\n<Router url=\\\"{url}\\\">\\r\\n  <Route path=\\\"/boards\\\"><Boards /></Route>\\r\\n  <Route path=\\\"b/:id\\\" let:params><Board id=\\\"{params.id}\\\" /></Route>\\r\\n</Router>\\r\\n\\r\\n<style lang=\\\"scss\\\">\\r\\n  /* :root {\\r\\n    margin: 0;\\r\\n    padding: 0;\\r\\n  } */\\r\\n  :global(html, body) {\\r\\n    font-size: 62.5%;\\r\\n  }\\r\\n  :global(body) {\\r\\n    padding: 0;\\r\\n  }\\r\\n  :global(*) {\\r\\n    box-sizing: border-box;\\r\\n  }\\r\\n</style>\\r\\n\"],\"names\":[],\"mappings\":\"AA2CU,UAAU,AAAE,CAAC,AACnB,SAAS,CAAE,KAAK,AAClB,CAAC,AACO,IAAI,AAAE,CAAC,AACb,OAAO,CAAE,CAAC,AACZ,CAAC,AACO,CAAC,AAAE,CAAC,AACV,UAAU,CAAE,UAAU,AACxB,CAAC\"}"
 };
 
 const App = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+	store_js.changeHeaderBackground.update(n => false);
 	let unsub = '';
 
 	if (window.location.pathname === '/') {
@@ -757,7 +759,9 @@ const App = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 
 	onMount(() => {
 		unsub = globalHistory.listen(({ location, action }) => {
-			console.log(location, action);
+			if (location.pathname.indexOf('/b/') > -1) {
+				store_js.changeHeaderBackground.update(n => true);
+			}
 		});
 	});
 

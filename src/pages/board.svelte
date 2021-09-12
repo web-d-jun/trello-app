@@ -1,7 +1,14 @@
 <script>
-  export let id;
+  import { onMount } from 'svelte';
   import { tick } from 'svelte';
+  import { changeHeaderBackground } from '@/store.js';
+
+  export let id;
   document.title = `${id} | Trello`;
+
+  onMount(() => {
+    changeHeaderBackground.update((n) => true);
+  });
 
   let lists = [
     {

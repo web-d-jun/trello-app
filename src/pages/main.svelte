@@ -3,7 +3,7 @@
   // import Icon from "svelte-fa";
   // import { faStar, faClock } from "@fortawesome/free-solid-svg-icons";
   import { navigate } from "svelte-routing";
-  import { changeHeaderBackground } from "@/store.js";
+  
 
   const items = [
     { id: 1, name: "project", favorite: true },
@@ -12,10 +12,9 @@
     { id: 4, name: "-", favorite: false },
   ];
 
-  changeHeaderBackground.update((n) => false);
 
   const goProject = (id) => {
-    changeHeaderBackground.update((n) => true);
+    
     navigate(`b/${id}`, { replace: true });
   };
 </script>
