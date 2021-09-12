@@ -137,6 +137,9 @@
   const changeInput = async (event, value, mode, index) => {
     if (mode === 'addList') {
       inputMode = value;
+      await tick();
+      const inputElem = document.querySelector('.list-name-input');
+      inputElem !== null && inputElem.focus();
     } else if (mode === 'addCard') {
       targetComposer.inputMode = value;
       targetComposer.index = index;
