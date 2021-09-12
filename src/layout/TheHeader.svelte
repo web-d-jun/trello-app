@@ -1,25 +1,25 @@
 <script>
-  import Icon from "svelte-fa";
-  import { faHome, faColumns, faPlus, faBell, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
-  import { navigate } from "svelte-routing";
-  import { changeHeaderBackground } from "@/store.js";
+  import Icon from 'svelte-fa';
+  import { faHome, faColumns, faPlus, faBell, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+  import { navigate } from 'svelte-routing';
+  import { changeHeaderBackground } from '@/store.js';
 
   const goPage = (page) => {
     navigate(page, { replace: true });
   };
 </script>
 
-<header id="header" class:custom-header-background={$changeHeaderBackground}>
-  <div class="header-band"><Icon icon={faColumns} /> Trello</div>
+<header id="header" class:custom-header-background="{$changeHeaderBackground}">
+  <div class="header-band"><Icon icon="{faColumns}" /> Trello</div>
   <div class="button-group">
-    <button type="button" class="button" on:click={() => goPage("/home")}> <Icon icon={faHome} /> </button>
-    <button type="button" class="button" on:click={() => goPage("/boards")}><span class="icon"><Icon icon={faColumns} /></span><span>Boards </span></button>
+    <button type="button" class="button" on:click="{() => goPage('/home')}"> <Icon icon="{faHome}" /> </button>
+    <button type="button" class="button" on:click="{() => goPage('/boards')}"><span class="icon"><Icon icon="{faColumns}" /></span><span>Boards </span></button>
     <button type="button" class="button">Jump to....</button>
   </div>
   <div class="button-group">
-    <button type="button" class="button"> <span class="icon"><Icon icon={faPlus} /></span> </button>
+    <button type="button" class="button"> <span class="icon"><span class="material-icons-outlined"> add </span> </span></button>
     <button type="button" class="button"><span class="material-icons-outlined"> error_outline </span></button>
-    <button type="button" class="button"><span class="icon"><Icon icon={faBell} /></span></button>
+    <button type="button" class="button"><span class="icon"><span class="material-icons-outlined"> notifications </span></span></button>
   </div>
 </header>
 

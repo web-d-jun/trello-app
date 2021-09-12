@@ -1,7 +1,7 @@
 <script>
   export let id;
   import { tick } from 'svelte';
-  document.title = id;
+  document.title = `${id} | Trello`;
 
   let lists = [
     {
@@ -194,6 +194,12 @@
   const handleClick = (e) => {
     console.log(`this window ${e}`);
   };
+  const showCardInfo = (e) => {
+    console.log('show card info');
+  };
+  const editCardInfo = () => {
+    console.log('editCardInfo');
+  };
 </script>
 
 <svelte:window on:click="{handleClick}" />
@@ -219,7 +225,12 @@
           </div>
           <div class="list-cards">
             {#each list.cardList as card, cardidx (card.id)}
-              <div class="list-card">{card.name}</div>
+              <div class="list-card" on:click|preventDefault="{showCardInfo}">
+                {card.name}
+                <div class="edit-button" on:click|stopPropagation="{editCardInfo}">
+                  <span class="material-icons-outlined"> edit </span>
+                </div>
+              </div>
             {/each}
           </div>
           <div class="card-composer-container">
@@ -356,6 +367,7 @@
             overflow-y: auto;
             overflow-x: hidden;
             .list-card {
+              position: relative;
               background-color: #fff;
               border-radius: 3px;
               box-shadow: 0 1px 0 #091e4240;
@@ -366,6 +378,23 @@
               min-height: 20px;
               padding: 9px 8px 7px;
               font-size: 15px;
+              & .edit-button {
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                right: 0;
+                top: 0;
+                padding: 6px;
+                margin: 4px;
+                border-radius: 4px;
+                &:hover {
+                  background-color: rgba(#000000, 0.1);
+                }
+
+                .material-icons-outlined {
+                  font-size: 14px;
+                }
+              }
               &:hover {
                 background-color: #f4f5f7;
               }
