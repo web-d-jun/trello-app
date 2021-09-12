@@ -40,6 +40,76 @@
         },
       ],
     },
+    {
+      id: 3,
+      name: 'TEST',
+      cardList: [
+        {
+          id: 0,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 1,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 2,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 3,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 4,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 5,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 6,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 7,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 8,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 9,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 10,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 11,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 12,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 13,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 14,
+          name: 'Trello 만들기 완성',
+        },
+        {
+          id: 15,
+          name: 'Trello 만들기 완성',
+        },
+      ],
+    },
   ];
 
   let inputMode = false;
@@ -86,6 +156,9 @@
       listNameValue = '';
       targetElm.focus();
     } else {
+      if (!cardNameValue) {
+        return;
+      }
       lists[index].cardList = lists[index].cardList.concat({
         id: lists[index].cardList.length,
         name: cardNameValue,
@@ -225,6 +298,7 @@
           flex-direction: column;
           border-radius: 4px;
           cursor: pointer;
+          max-height: 100%;
           .list-header {
             width: 100%;
             min-height: 20px;
@@ -273,6 +347,8 @@
           }
           .list-cards {
             padding: 0 6px;
+            overflow-y: auto;
+            overflow-x: hidden;
             .list-card {
               background-color: #fff;
               border-radius: 3px;
@@ -284,6 +360,9 @@
               min-height: 20px;
               padding: 9px 8px 7px;
               font-size: 15px;
+              &:hover {
+                background-color: #f4f5f7;
+              }
             }
           }
           .card-composer-container {
@@ -291,6 +370,8 @@
             display: flex;
             flex-direction: column;
             .card-name-input {
+              border: 0;
+              outline: 0;
               resize: none;
             }
             .add-card-button {
