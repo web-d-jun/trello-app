@@ -180,9 +180,6 @@
             }
             .material-icons-outlined {
               font-size: 16px;
-              &.starred {
-                color: yellow;
-              }
             }
           }
         }

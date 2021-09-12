@@ -1,6 +1,8 @@
 <script>
   export let id;
   import { tick } from 'svelte';
+  document.title = id;
+
   let lists = [
     {
       id: 0,
@@ -129,12 +131,11 @@
     if (mode === 'addList') {
       inputMode = value;
     } else if (mode === 'addCard') {
-      console.log(index);
       targetComposer.inputMode = value;
       targetComposer.index = index;
       await tick();
       const inputElem = document.querySelector('.card-name-input');
-      inputElem.focus();
+      inputElem !== null && inputElem.focus();
     }
   };
 
@@ -190,7 +191,12 @@
       targetHeader.index = index;
     }
   };
+  const handleClick = (e) => {
+    console.log(`this window ${e}`);
+  };
 </script>
+
+<svelte:window on:click="{handleClick}" />
 
 <div class="board-main">
   <div class="board-header">header</div>
