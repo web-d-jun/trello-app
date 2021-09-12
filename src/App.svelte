@@ -1,15 +1,32 @@
 <script>
-  import Header from "@/layout/TheHeader.svelte";
-  import Boards from "@/pages/boards.svelte";
-  import Board from "@/pages/board.svelte";
-  import { Router, Route } from "svelte-routing";
+  import Header from '@/layout/TheHeader.svelte';
+  import Boards from '@/pages/boards.svelte';
+  import Board from '@/pages/board.svelte';
+  import { Router, Route } from 'svelte-routing';
+  import { globalHistory } from 'svelte-routing/src/history';
+  import { onDestroy, onMount } from 'svelte';
+  import { navigate } from 'svelte-routing';
 
-  export let url = "";
+  let unsub = '';
+
+  if (window.location.pathname === '/') {
+    navigate('/boards', { replace: true });
+  }
+  onMount(() => {
+    unsub = globalHistory.listen(({ location, action }) => {
+      console.log(location, action);
+    });
+  });
+  onDestroy(() => {
+    unsub();
+  });
+
+  export let url = '';
 </script>
 
 <Header />
 
-<Router {url}>
+<Router url="{url}">
   <Route path="/boards"><Boards /></Route>
   <Route path="b/:id" let:params><Board id="{params.id}" /></Route>
 </Router>

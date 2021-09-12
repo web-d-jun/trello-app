@@ -311,6 +311,7 @@ const canUseDOM = Boolean(
     window.document.createElement
 );
 const globalHistory = createHistory(canUseDOM ? window : createMemorySource());
+const { navigate } = globalHistory;
 
 /**
  * Adapted from https://github.com/reach/router/blob/b60e6dd781d5d3a4bdaaf4de665649c0f6a7e78d/src/lib/utils.js
@@ -744,11 +745,27 @@ const Route = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 
 const css = {
 	code: "html, body{font-size:62.5%}body{padding:0}*{box-sizing:border-box}",
-	map: "{\"version\":3,\"file\":\"App.svelte\",\"sources\":[\"App.svelte\"],\"sourcesContent\":[\"<script>\\r\\n  import Header from \\\"@/layout/TheHeader.svelte\\\";\\r\\n  import Boards from \\\"@/pages/boards.svelte\\\";\\r\\n  import Board from \\\"@/pages/board.svelte\\\";\\r\\n  import { Router, Route } from \\\"svelte-routing\\\";\\r\\n\\r\\n  export let url = \\\"\\\";\\r\\n</script>\\r\\n\\r\\n<Header />\\r\\n\\r\\n<Router {url}>\\r\\n  <Route path=\\\"/boards\\\"><Boards /></Route>\\r\\n  <Route path=\\\"b/:id\\\" let:params><Board id=\\\"{params.id}\\\" /></Route>\\r\\n</Router>\\r\\n\\r\\n<style lang=\\\"scss\\\">\\r\\n  /* :root {\\r\\n    margin: 0;\\r\\n    padding: 0;\\r\\n  } */\\r\\n  :global(html, body) {\\r\\n    font-size: 62.5%;\\r\\n  }\\r\\n  :global(body) {\\r\\n    padding: 0;\\r\\n  }\\r\\n  :global(*) {\\r\\n    box-sizing: border-box;\\r\\n  }\\r\\n</style>\\r\\n\"],\"names\":[],\"mappings\":\"AAqBU,UAAU,AAAE,CAAC,AACnB,SAAS,CAAE,KAAK,AAClB,CAAC,AACO,IAAI,AAAE,CAAC,AACb,OAAO,CAAE,CAAC,AACZ,CAAC,AACO,CAAC,AAAE,CAAC,AACV,UAAU,CAAE,UAAU,AACxB,CAAC\"}"
+	map: "{\"version\":3,\"file\":\"App.svelte\",\"sources\":[\"App.svelte\"],\"sourcesContent\":[\"<script>\\r\\n  import Header from '@/layout/TheHeader.svelte';\\r\\n  import Boards from '@/pages/boards.svelte';\\r\\n  import Board from '@/pages/board.svelte';\\r\\n  import { Router, Route } from 'svelte-routing';\\r\\n  import { globalHistory } from 'svelte-routing/src/history';\\r\\n  import { onDestroy, onMount } from 'svelte';\\r\\n  import { navigate } from 'svelte-routing';\\r\\n\\r\\n  let unsub = '';\\r\\n\\r\\n  if (window.location.pathname === '/') {\\r\\n    navigate('/boards', { replace: true });\\r\\n  }\\r\\n  onMount(() => {\\r\\n    unsub = globalHistory.listen(({ location, action }) => {\\r\\n      console.log(location, action);\\r\\n    });\\r\\n  });\\r\\n  onDestroy(() => {\\r\\n    unsub();\\r\\n  });\\r\\n\\r\\n  export let url = '';\\r\\n</script>\\r\\n\\r\\n<Header />\\r\\n\\r\\n<Router url=\\\"{url}\\\">\\r\\n  <Route path=\\\"/boards\\\"><Boards /></Route>\\r\\n  <Route path=\\\"b/:id\\\" let:params><Board id=\\\"{params.id}\\\" /></Route>\\r\\n</Router>\\r\\n\\r\\n<style lang=\\\"scss\\\">\\r\\n  /* :root {\\r\\n    margin: 0;\\r\\n    padding: 0;\\r\\n  } */\\r\\n  :global(html, body) {\\r\\n    font-size: 62.5%;\\r\\n  }\\r\\n  :global(body) {\\r\\n    padding: 0;\\r\\n  }\\r\\n  :global(*) {\\r\\n    box-sizing: border-box;\\r\\n  }\\r\\n</style>\\r\\n\"],\"names\":[],\"mappings\":\"AAsCU,UAAU,AAAE,CAAC,AACnB,SAAS,CAAE,KAAK,AAClB,CAAC,AACO,IAAI,AAAE,CAAC,AACb,OAAO,CAAE,CAAC,AACZ,CAAC,AACO,CAAC,AAAE,CAAC,AACV,UAAU,CAAE,UAAU,AACxB,CAAC\"}"
 };
 
 const App = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-	let { url = "" } = $$props;
+	let unsub = '';
+
+	if (window.location.pathname === '/') {
+		navigate('/boards', { replace: true });
+	}
+
+	onMount(() => {
+		unsub = globalHistory.listen(({ location, action }) => {
+			console.log(location, action);
+		});
+	});
+
+	onDestroy(() => {
+		unsub();
+	});
+
+	let { url = '' } = $$props;
 	if ($$props.url === void 0 && $$bindings.url && url !== void 0) $$bindings.url(url);
 	$$result.css.add(css);
 
