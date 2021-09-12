@@ -19,6 +19,8 @@
     unsub = globalHistory.listen(({ location, action }) => {
       if (location.pathname.indexOf('/b/') > -1) {
         changeHeaderBackground.update((n) => true);
+      } else {
+        changeHeaderBackground.update((n) => false);
       }
     });
   });

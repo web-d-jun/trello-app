@@ -33,7 +33,7 @@
     align-items: center;
     justify-content: space-between;
     &.custom-header-background {
-      background-color: rgb(0 0 0 / 68%);
+      background-color: rgb(6 3 3 / 81%);
     }
     & .header-band {
       position: absolute;
