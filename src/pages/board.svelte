@@ -1,47 +1,99 @@
 <script>
   export let id;
-
-  let cardLists = [
+  import { tick } from 'svelte';
+  let lists = [
     {
       id: 0,
       name: 'todo',
+      cardList: [
+        {
+          id: 0,
+          name: 'Trello 만들기',
+        },
+        {
+          id: 1,
+          name: 'Trello 디자인 확인',
+        },
+        {
+          id: 2,
+          name: 'Trello 테스트',
+        },
+      ],
     },
     {
       id: 1,
       name: 'ing',
+      cardList: [
+        {
+          id: 0,
+          name: 'Trello 기획',
+        },
+      ],
     },
     {
       id: 2,
       name: 'done',
+      cardList: [
+        {
+          id: 0,
+          name: 'Trello 만들기 완성',
+        },
+      ],
     },
   ];
 
   let inputMode = false;
   let listNameValue = '';
-
-  const changeInput = async (event, value) => {
-    inputMode = value;
-  };
-  const createCard = (event) => {
-    event.preventDefault();
-    if (event.type === 'keyup' && event.code !== 'Enter') {
-      return;
-    }
-
-    const targetElm = document.querySelector('#listNameInput');
-
-    cardLists = cardLists.concat({
-      id: cardLists.length,
-      name: listNameValue,
-    });
-    listNameValue = '';
-    targetElm.focus();
-  };
+  let cardNameValue = '';
 
   const targetHeader = {
     inputMode: false,
     index: 0,
   };
+  const targetComposer = {
+    inputMode: false,
+    index: 0,
+  };
+
+  const changeInput = async (event, value, mode, index) => {
+    if (mode === 'addList') {
+      inputMode = value;
+    } else if (mode === 'addCard') {
+      console.log(index);
+      targetComposer.inputMode = value;
+      targetComposer.index = index;
+      await tick();
+      const inputElem = document.querySelector('.card-name-input');
+      inputElem.focus();
+    }
+  };
+
+  const createCard = (event, mode, index) => {
+    const modeVal = mode ?? 'list';
+    event.preventDefault();
+    if (event.type === 'keyup' && event.code !== 'Enter') {
+      return;
+    }
+
+    if (modeVal === 'list') {
+      const targetElm = document.querySelector('#listNameInput');
+
+      lists = lists.concat({
+        id: lists.length,
+        name: listNameValue,
+        cardList: [],
+      });
+      listNameValue = '';
+      targetElm.focus();
+    } else {
+      lists[index].cardList = lists[index].cardList.concat({
+        id: lists[index].cardList.length,
+        name: cardNameValue,
+      });
+      cardNameValue = '';
+    }
+  };
+
   const focusOut = (target, index) => {
     if (target === 'listHeaderName') {
       targetHeader.inputMode = false;
@@ -70,7 +122,7 @@
 <div class="board-main">
   <div class="board-header">header</div>
   <div class="board-body">
-    {#each cardLists as cardList, index (cardList.id)}
+    {#each lists as list, index (list.id)}
       <div class="list-wrap">
         <div class="list-content">
           <div class="list-header">
@@ -83,12 +135,38 @@
               rows="10"
               on:keydown="{($event) => updateName($event)}"
               on:focus="{($event) => focusIn($event, 'listHeaderName', index)}"
-              on:blur="{() => focusOut('listHeaderName', index)}">{cardList.name}</textarea>
+              on:blur="{() => focusOut('listHeaderName', index)}">{list.name}</textarea>
             <button type="button" class="more-button"><span class="material-icons-outlined"> more_horiz </span></button>
           </div>
-          <!-- <div class="list-card">list card</div> -->
+          <div class="list-cards">
+            {#each list.cardList as card, cardidx (card.id)}
+              <div class="list-card">{card.name}</div>
+            {/each}
+          </div>
           <div class="card-composer-container">
-            <div class="add-card-button"><span class="material-icons-outlined"> add </span> Add a card</div>
+            {#if targetComposer.inputMode && targetComposer.index === index}
+              <div class="add-card-container">
+                <div class="add-coard__contents">
+                  <textarea
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="10"
+                    class="card-name-input"
+                    placeholder="Enter a title for this card..."
+                    on:keyup|preventDefault="{($event) => createCard($event, 'card', index)}"
+                    bind:value="{cardNameValue}"></textarea>
+                </div>
+                <div class="flex align-center add-button__wrap" class:visible-mode="{targetComposer.inputMode && targetComposer.index === index}">
+                  <button type="button" class="add-button" on:click|preventDefault="{($event) => createCard($event, 'card', index)}">Add card</button>
+                  <span class="material-icons-outlined" on:click|preventDefault="{($event) => changeInput($event, false, 'addCard', index)}"> close </span>
+                </div>
+              </div>
+            {:else}
+              <div class="add-card-button" on:click|preventDefault="{($event) => changeInput($event, true, 'addCard', index)}">
+                <span class="material-icons-outlined"> add </span> <span>Add a card</span>
+              </div>
+            {/if}
           </div>
         </div>
       </div>
@@ -96,13 +174,14 @@
     <div class="add-list" class:add-mode="{inputMode}">
       <div class="add__contents">
         {#if !inputMode}
-          <span class="inner__text" on:click|preventDefault="{($event) => changeInput($event, true)}"><span class="material-icons-outlined"> add </span> Add another list</span>
+          <span class="inner__text" on:click|preventDefault="{($event) => changeInput($event, true, 'addList')}"
+            ><span class="material-icons-outlined"> add </span> Add another list</span>
         {:else}
           <input type="text" id="listNameInput" class="list-name-input" placeholder="Enter list title..." on:keyup|preventDefault="{createCard}" bind:value="{listNameValue}" />
         {/if}
         <div class="flex align-center add-button__wrap" class:visible-mode="{inputMode}">
           <button type="button" class="add-button" on:click|preventDefault="{createCard}">Add list</button>
-          <span class="material-icons-outlined" on:click|preventDefault="{($event) => changeInput($event, false)}"> close </span>
+          <span class="material-icons-outlined" on:click|preventDefault="{($event) => changeInput($event, false, 'addList')}"> close </span>
         </div>
       </div>
     </div>
@@ -192,13 +271,58 @@
               }
             }
           }
+          .list-cards {
+            padding: 0 6px;
+            .list-card {
+              background-color: #fff;
+              border-radius: 3px;
+              box-shadow: 0 1px 0 #091e4240;
+              cursor: pointer;
+              display: block;
+              margin-bottom: 8px;
+              max-width: 300px;
+              min-height: 20px;
+              padding: 9px 8px 7px;
+              font-size: 15px;
+            }
+          }
           .card-composer-container {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            .card-name-input {
+              resize: none;
+            }
             .add-card-button {
-              height: 38px;
-              line-height: 38px;
+              font-size: 15px;
+              color: #647384;
+              flex: 1;
+              display: flex;
+              align-items: center;
+              padding: 4px 8px;
+              margin: 2px 8px 8px 8px;
+              &:hover {
+                background: rgba(#000000, 0.1);
+              }
               &:active {
                 background: rgba(#000000, 0.2);
+              }
+            }
+            .add-card-container {
+              padding: 6px;
+              .add-coard__contents {
+                display: inline-block;
+                width: 100%;
+                .card-name-input {
+                  width: 100%;
+                  height: 38px;
+                  font-size: 14px;
+                  padding: 9px;
+                  margin: 0;
+                  box-shadow: 0 1px 0 #091e4240;
+                  border: 0;
+                  overflow: hidden;
+                }
               }
             }
           }
@@ -207,7 +331,7 @@
       .add-list {
         display: inline-block;
         vertical-align: top;
-        background-color: #00000014;
+        background-color: rgba(#ebecf0, 0.5);
         padding: 4px;
         border-radius: 4px;
         cursor: pointer;
@@ -220,11 +344,11 @@
           background-color: #ebecf0;
         }
         &:active {
-          background: rgba(#000000, 0.2);
+          background-color: rgba(#ebecf0, 0.7);
         }
         &:not(.add-mode) {
           &:hover {
-            background: rgba(#000000, 0.2);
+            background-color: rgba(#ebecf0, 0.7);
           }
         }
 
@@ -250,27 +374,28 @@
             box-shadow: inset 0 0 0 2px #144ff7;
             margin: 0;
           }
-          .add-button__wrap {
-            margin: 4px 0 0;
-            height: 0;
-            overflow: hidden;
-            transition: all 0.1s ease-in-out;
-            &.visible-mode {
-              height: 32px;
-              overflow: visible;
-              transition: all 0.1s ease-in-out;
-            }
-            & .add-button {
-              background-color: #026aa7;
-              color: #fff;
-              height: 32px;
-              font-size: 14px;
-              border-radius: 4px;
-              margin: 0;
-              padding: 4px 12px;
-            }
-          }
         }
+      }
+    }
+    .add-button__wrap {
+      margin: 4px 0 0;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.1s ease-in-out;
+      &.visible-mode {
+        height: 32px;
+        overflow: visible;
+        transition: all 0.1s ease-in-out;
+      }
+      & .add-button {
+        background-color: #026aa7;
+        color: #fff;
+        height: 32px;
+        font-size: 14px;
+        border-radius: 4px;
+        margin: 0;
+        padding: 4px 12px;
+        cursor: pointer;
       }
     }
   }
